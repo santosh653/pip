@@ -19,16 +19,35 @@ jobs:
     # Basic Checks
     - stage: primary
       env: TOXENV=docs
+      arch: amd64
     - env: TOXENV=lint
+      arch: amd64
     - env: TOXENV=vendoring
+      arch: amd64
+    - stage: primary
+      env: TOXENV=docs
+      arch: ppc64le
+    - env: TOXENV=lint
+      arch: ppc64le
+    - env: TOXENV=vendoring
+      arch: ppc64le
 
     # Complete checking for ensuring compatibility
     # PyPy
     - stage: secondary
       env: GROUP=1
       python: pypy3.6-7.3.1
+      arch: amd64
     - env: GROUP=2
       python: pypy3.6-7.3.1
+      arch: amd64
+    - stage: secondary
+      env: GROUP=1
+      python: pypy3.6-7.3.1
+      arch: ppc64le
+    - env: GROUP=2
+      python: pypy3.6-7.3.1
+      arch: ppc64le
 
 before_install: tools/travis/setup.sh
 install: travis_retry tools/travis/install.sh
